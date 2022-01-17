@@ -1,104 +1,152 @@
 
-var clickedBtn = document.querySelector("#clicked")
 
-var hsEl = document.querySelector("#highscore");
-var timerEl = document.querySelector("#timer");
-var btnEl = document.querySelector("#clicked");
+const clickedBtn = document.querySelector("#clicked");
+const qContainer = document.querySelector(".q-container");
+const questBox = document.querySelector(".q-box");
+const everyAnswer = document.querySelector(".every-answer")
+let response = document.querySelector(".response");
+let timer = document.querySelector("#timer")
+
+
+
+//const endQuiz = function(){}
+    // END QUIZ LOGIC and show results/highscore with initials entered
 
 
 
 // start function
-var startQuiz = function(){}
+const startQuiz = function() {
+    console.log("started")
+    questionIndex = 0;
+    };
     
+    // countdown timer attached to timer (starts on click)
+    document.getElementById("clicked").addEventListener("click", function(){
+        var timeleft = 60;
+    
+        var downloadTimer = setInterval(function function1(){
+        document.getElementById("timer").innerHTML = timeleft + " "+"";
+    
+        timeleft -= 1;
+        if(timeleft <= -1){
+            clearInterval(downloadTimer);
+            document.getElementById("timer").innerHTML = "Times up!"
+        }
+        }, 1000);
+        
+        showQuestions();
+    });
+    // timer end //
 
 
-// // create array to hold answers for saving 
-// var answers = [];
-// // variable to store HTML 
-// var output = [];
-
-
-
-// countdown timer attached to timer
-document.getElementById("clicked").addEventListener("click", function(){
-    var timeleft = 5;
-
-    var downloadTimer = setInterval(function function1(){
-    document.getElementById("timer").innerHTML = timeleft + " "+"";
-
-    timeleft -= 1;
-    if(timeleft <= -1){
-        clearInterval(downloadTimer);
-        document.getElementById("timer").innerHTML = "Times up!"
+//questions//
+var questionsArray = [
+    {
+        questionText: "Commonly used data types DO not include:",
+        choice: ["Strings", "Booleans", "Alerts", "Numbers"],
+        answer: "Alerts",
+    },
+    {
+        questionText: "The condition in an if / else statement is enclosed with __________.",
+        choice: ["Quotes", "Curly brackets", "Parenthesis", "Square brackets"],
+        answer: "Parenthesis",
+    },
+    {
+        questionText: "Arrays in JavaScript can be used to store __________ ",
+        choice: ["Numbers and Strings", "Other arrays", "Booleans", "All of the above"],
+        answer: "All of the above",
+    },
+    {
+        questionText: "String values must be enclosed within __________ when being assigned to variables ",
+        choice: ["Commas", "Curly brackets", "Quotes", "Parenthesis"],
+        answer: "Quotes",
+    },
+    {
+        questionText: "A very useful tool used during development and debugging from printing content to the debugger is:",
+        choice: ["JavaScript", "Terminla/bash", "For loops", "Console.log"],
+        answer: "Console.log"
     }
-    }, 1000);
+    ]
+//questions end//
 
-    console.log(clicked);
-});
+
+    
+
+// show questions //  
+const showQuestions = function(){
+    let currQuestion = questionsArray[questionIndex];
+    
+    let qContainer = document.createElement("div");
+    questBox.prepend(qContainer); // prepend to attach to start of array
+    
+    let questionTitle = document.createElement("h3");
+    questionTitle.textContent = currQuestion.questionText;
+    qContainer.appendChild(questionTitle);
+
+    let answerContainer = document.createElement("ol");
+    everyAnswer.appendChild(answerContainer);
+
+    for (let i = 0; i < currQuestion.choice.length; i++) {
+        var answerChoice = document.createElement("li");
+        answerChoice.className = "answer";
+        answerChoice.textContent = currQuestion.choice[i];
+
+      var clickedAnswer = answerChoice.setAttribute("id", currQuestion.choice[i]);//<<<<<<<<<<
+
+      answerContainer.appendChild(answerChoice);
+    }
+
+    answerContainer.addEventListener("click", function(event) {
+        answerChoice = event.target;
+        
+        // answered CORRECTLY
+        if (answerChoice.id == currQuestion.answer) {
+            response.innerHTML = '<h3>Correct</h3>';
+            answerContainer.appendChild(response);
+            questionIndex++;
+        }
+        // answered INCORRECTLY
+        else {
+            response.innerHTML = '<h3>Incorrect</h3>'; 
+            answerContainer.appendChild (response);
+            //timeleft = timeleft =-10; // 10 sec off for incorrect
+            //timer =-10; // 10 sec off for inccorect
+            questionIndex++;
+        }
+
+        const displayNextQuestion = setTimeout(function() {
+            if (questionIndex < questionsArray.length) {
+                qContainer.remove();
+                showQuestions();
+            }
+            else {
+                endQuiz();
+            }
+        }, 1000);
+    })
+}
+
+
+
+
+
+
+
+
+selectanswer = function(){}
+
+
+showResults = function(){}
+// results function
+//viewResults = function(){}
     
 
 
 
 
 
-//questions
-var Questions = [
-{
-    question: "Commonly used data types DO not include:",
-    answers: {
-        1: "strings",
-        2: "booleans",
-        3: "alerts",
-        4: "numbers"
-    },
-    correctAnswer: "3"
-},
-{
-    question: "The condition in an if / else statement is enclosed with __________.",
-    answers: {
-        1: "quotes",
-        2: "curly brackets",
-        3: "parenthesis",
-        4: "square brackets"
-    },
-    correctAnswer: "3"
-},
-{
-    question: "Arrays in JavaScript can be used to store __________ ",
-    answers: {
-        1: "numbers and strings",
-        2: "other arrays",
-        3: "booleans",
-        4: "all of the above"
-    },
-    correctAnswer: "4"
-},
-{
-    question: "String values must be enclosed within __________ when being assigned to variables ",
-    answers: {
-        1: "commas",
-        2: "curly brackets",
-        3: "quotes",
-        4: "parenthesis"
-    },
-    correctAnswer: "3"
-},
-{
-    question: "A very useful tool used during development and debugging from printing content to the debugger is:",
-    answers: {
-        1: "JavaScript",
-        2: "terminal/bash",
-        3: "for loops",
-        4: "console.log"
-    },
-    correctAnswer: "4"
-}
-];
-
-
-
-// results function
-var viewResults = function(){}
+//IF FALSE REMOVE 10 SECONDS - ALERT INCORRECT AND MOVE ONTO NEXT QUESTION
+//IF CORRECT - ALERT CORRECT
 
 
 
@@ -107,11 +155,11 @@ var viewResults = function(){}
 
 
 
-
-
-
-// click to begin quiz
-clickedBtn.addEventListener("click", startQuiz);
 
 // call start quiz
 startQuiz()
+
+// click to begin quiz
+clickedBtn.addEventListener("click", startQuiz)
+
+
