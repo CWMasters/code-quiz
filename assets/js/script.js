@@ -1,11 +1,17 @@
 
-
+//const header = document.querySelector(".header")
 const clickedBtn = document.querySelector("#clicked");
 const qContainer = document.querySelector(".q-container");
+//const aContainer = document.querySelector("aContainer");
 const questBox = document.querySelector(".q-box");
 const everyAnswer = document.querySelector(".every-answer")
 let response = document.querySelector(".response");
 let timer = document.querySelector("#timer")
+
+// let timeleft = document.querySelector 
+//let timeText = document.querySelector("#timeText");
+
+//let timer = "";
 
 
 
@@ -18,6 +24,7 @@ let timer = document.querySelector("#timer")
 const startQuiz = function() {
     console.log("started")
     questionIndex = 0;
+    //header.remove(); //hide header on question prompted
     };
     
     // countdown timer attached to timer (starts on click)
@@ -83,8 +90,9 @@ const showQuestions = function(){
     questionTitle.textContent = currQuestion.questionText;
     qContainer.appendChild(questionTitle);
 
-    let answerContainer = document.createElement("ol");
-    everyAnswer.appendChild(answerContainer);
+    // questions insidde answer box
+    let aContainer = document.createElement("ol");
+    everyAnswer.appendChild(aContainer);
 
     for (let i = 0; i < currQuestion.choice.length; i++) {
         var answerChoice = document.createElement("li");
@@ -93,30 +101,31 @@ const showQuestions = function(){
 
       var clickedAnswer = answerChoice.setAttribute("id", currQuestion.choice[i]);//<<<<<<<<<<
 
-      answerContainer.appendChild(answerChoice);
+      aContainer.appendChild(answerChoice);
     }
 
-    answerContainer.addEventListener("click", function(event) {
+    aContainer.addEventListener("click", function(event) {
         answerChoice = event.target;
         
         // answered CORRECTLY
         if (answerChoice.id == currQuestion.answer) {
             response.innerHTML = '<h3>Correct</h3>';
-            answerContainer.appendChild(response);
+            aContainer.appendChild(response);
             questionIndex++;
         }
         // answered INCORRECTLY
         else {
             response.innerHTML = '<h3>Incorrect</h3>'; 
-            answerContainer.appendChild (response);
-            //timeleft = timeleft =-10; // 10 sec off for incorrect
-            //timer =-10; // 10 sec off for inccorect
+            aContainer.appendChild(response);
+            // timeleft = timeleft -10; // 10 sec off for incorrect     ?????? where does it go?
+            // timeText =-10; // 10 sec off for inccorect
             questionIndex++;
         }
 
         const displayNextQuestion = setTimeout(function() {
             if (questionIndex < questionsArray.length) {
-                qContainer.remove();
+                qContainer.remove(); //remove previous question for next
+                aContainer.remove(); //remove previous answer for next
                 showQuestions();
             }
             else {
@@ -133,7 +142,7 @@ const showQuestions = function(){
 
 
 
-selectanswer = function(){}
+
 
 
 showResults = function(){}

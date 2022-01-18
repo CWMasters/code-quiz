@@ -15,22 +15,32 @@ body {
 /* header */
 .header {
     text-align: center;
+    font-size: 20px;
 }
 
-
+.btn-container {
+    text-align: center;
+}
 
 /* button style */
 .btn {
     background: navy;
     color: white;
     border-radius: 10px;
-    padding: 10px 15px;
+    padding: 10px 15px ;
     font-size: 20px;
+    
+    /* width: 200px;
+    margin: auto;
+    align-items: center; */
 }
+
+
 
 .q-box {
     background: white;
-    width: 50%;
+    width: 50%; 
+    margin: auto;
 }
 
 .response {
@@ -40,5 +50,4 @@ body {
 .every-answer {
     color: navy;
     margin: 20px;
-
 }
