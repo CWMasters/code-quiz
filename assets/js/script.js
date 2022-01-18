@@ -14,20 +14,24 @@ let timer = document.querySelector("#timer")
 
 
 // local storage //
-let saveAnswer = function() {
-    localStorage.setItem("answer", JSON.stringify(answer));
-};
+var results = ["highscore", "initials"];
+localStorage.setItem("q_results", JSON.stringify(results)); //store highscore
+var storedResults = JSON.parse(localStorage.getItem("q_results")); // retrieve them
 
-let loadAnswer = function() {
-    answer = JSON.parse(localStorage.getItem("answer"));
-
-    // if (!answer) {
-    //     answer = {
-    //         intials: [],
-    //         highScore: [],
-    //     }
-    // }
+for(var i = 0; i < storedResults.length; i++){
+    console.log(storedResults[i]);
 }
+
+
+
+// let saveAnswer = function() {
+//     localStorage.setItem("answer", JSON.stringify(answer));
+// };
+
+// let loadAnswer = function() {
+//     answer = JSON.parse(localStorage.getItem("answer"));
+
+// }
 
 
 
