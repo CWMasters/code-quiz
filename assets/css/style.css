@@ -1,5 +1,6 @@
 * {
     font-family: Arial, Helvetica, sans-serif;
+    
 }
 
 
@@ -8,8 +9,20 @@
 /* body */
 body {
     width: 100vw;
-    background-color: paleturquoise;
+    background-color: lightblue
     /*padding: 20px;*/
+}
+
+#highscore {
+    padding-left: 20px;
+    display: flex;
+}
+
+.time-text {
+    padding-left: 20px;
+    /* margin: auto;
+    text-align: right;
+    padding-right: 50px; */
 }
 
 /* header */
@@ -35,19 +48,22 @@ body {
     align-items: center; */
 }
 
-
-
 .q-box {
-    background: white;
+    background: lightblue;
     width: 50%; 
     margin: auto;
+    text-align: center;
+    font-size: 25px;
+    border-radius: 10px;
+}
+
+.every-answer {
+    text-align: left;
+    padding-left: 80px;
+    color: navy;
+    margin: 20px;
 }
 
 .response {
     font-style: bold;
-}
-
-.every-answer {
-    color: navy;
-    margin: 20px;
 }

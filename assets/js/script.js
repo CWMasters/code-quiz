@@ -1,8 +1,8 @@
 
-//const header = document.querySelector(".header")
+
+const header = document.querySelector(".header")
 const clickedBtn = document.querySelector("#clicked");
 const qContainer = document.querySelector(".q-container");
-//const aContainer = document.querySelector("aContainer");
 const questBox = document.querySelector(".q-box");
 const everyAnswer = document.querySelector(".every-answer")
 let response = document.querySelector(".response");
@@ -10,13 +10,25 @@ let timer = document.querySelector("#timer")
 
 // let timeleft = document.querySelector 
 //let timeText = document.querySelector("#timeText");
-
 //let timer = "";
 
 
+// local storage //
+let saveAnswer = function() {
+    localStorage.setItem("answer", JSON.stringify(answer));
+};
 
-//const endQuiz = function(){}
-    // END QUIZ LOGIC and show results/highscore with initials entered
+let loadAnswer = function() {
+    answer = JSON.parse(localStorage.getItem("answer"));
+
+    // if (!answer) {
+    //     answer = {
+    //         intials: [],
+    //         highScore: [],
+    //     }
+    // }
+}
+
 
 
 
@@ -24,12 +36,12 @@ let timer = document.querySelector("#timer")
 const startQuiz = function() {
     console.log("started")
     questionIndex = 0;
-    //header.remove(); //hide header on question prompted
-    };
+};
     
     // countdown timer attached to timer (starts on click)
+    var timeleft = "";
     document.getElementById("clicked").addEventListener("click", function(){
-        var timeleft = 60;
+        timeleft = 30;
     
         var downloadTimer = setInterval(function function1(){
         document.getElementById("timer").innerHTML = timeleft + " "+"";
@@ -42,6 +54,8 @@ const startQuiz = function() {
         }, 1000);
         
         showQuestions();
+        header.remove(); //hide header on question on start
+        clickedBtn.remove(); // hide button on start
     });
     // timer end //
 
@@ -70,7 +84,7 @@ var questionsArray = [
     },
     {
         questionText: "A very useful tool used during development and debugging from printing content to the debugger is:",
-        choice: ["JavaScript", "Terminla/bash", "For loops", "Console.log"],
+        choice: ["JavaScript", "Terminal/bash", "For loops", "Console.log"],
         answer: "Console.log"
     }
     ]
@@ -85,7 +99,7 @@ const showQuestions = function(){
     
     let qContainer = document.createElement("div");
     questBox.prepend(qContainer); // prepend to attach to start of array
-    
+
     let questionTitle = document.createElement("h3");
     questionTitle.textContent = currQuestion.questionText;
     qContainer.appendChild(questionTitle);
@@ -117,8 +131,8 @@ const showQuestions = function(){
         else {
             response.innerHTML = '<h3>Incorrect</h3>'; 
             aContainer.appendChild(response);
-            // timeleft = timeleft -10; // 10 sec off for incorrect     ?????? where does it go?
-            // timeText =-10; // 10 sec off for inccorect
+            timeleft -=10; // 10 sec off for incorrect    
+            document.getElementById("timer").innerHTML = timeleft;
             questionIndex++;
         }
 
@@ -135,11 +149,20 @@ const showQuestions = function(){
     })
 }
 
+// END QUIZ LOGIC and show results/highscore with initials entered
+const endQuiz = function(){
+
+    // stop timer
+    clearInterval(timer);
+
+    //hide questions/asnwers/button
+    qContainer.remove(); //remove previous question for next
+    everyAnswer.remove(); //remove answers
+
+    
 
 
-
-
-
+};
 
 
 
@@ -154,21 +177,10 @@ showResults = function(){}
 
 
 
-//IF FALSE REMOVE 10 SECONDS - ALERT INCORRECT AND MOVE ONTO NEXT QUESTION
-//IF CORRECT - ALERT CORRECT
-
-
-
-
-
-
-
-
-
 // call start quiz
 startQuiz()
 
 // click to begin quiz
-clickedBtn.addEventListener("click", startQuiz)
+clickedBtn.addEventListener("click", startQuiz);
 
 

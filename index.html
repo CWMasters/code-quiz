@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>My JavaScript Quiz</title>
     <link rel="stylesheet" href="./assets/css/style.css" />
 </head>
   <body>
@@ -15,8 +15,9 @@
         </div>
 
         <!-- timer -->
-        <p class= "time-text">Time left:</p>
-        <div id="timer" class="countdown">
+        <div>
+          <h3  class= "time-text">Time left:</h3>
+          <div id="timer" class="countdown"></div>
         </div>
     </header>
           
@@ -24,8 +25,8 @@
     <main class="q-container">
         <!-- header -->
         <div class="header">
-        <h1>Coding Quiz Challenge</h1>
-          <p>Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds! </p>
+            <h1>Coding Quiz Challenge</h1>
+            <p>Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds! </p>
         </div>
 
         <!-- start quiz button -->
@@ -35,14 +36,14 @@
           </div>
         </div>
 
-        <div class = "q-box">
+        <div class = "q-box" id=>
             <div class= "every-answer"></div>
         </div>
 
 
 
 
-        
+
         <div class = "response"></div>
 
         <!-- results -->
