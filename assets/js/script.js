@@ -6,11 +6,15 @@ const qContainer = document.querySelector(".q-container");
 const questBox = document.querySelector(".q-box");
 const everyAnswer = document.querySelector(".every-answer")
 let response = document.querySelector(".response");
-let timer = document.querySelector("#timer")
+let timer = document.querySelector("#timer");
+const initials = document.querySelector(".initials");
+let currQuestion;
+let downloadTimer;
+// let results = document.querySelector("#results");
 
-// let timeleft = document.querySelector 
-//let timeText = document.querySelector("#timeText");
-//let timer = "";
+// let score = "";
+// let results = "";
+
 
 
 // local storage //
@@ -23,38 +27,33 @@ for(var i = 0; i < storedResults.length; i++){
 }
 
 
-
-// let saveAnswer = function() {
-//     localStorage.setItem("answer", JSON.stringify(answer));
-// };
-
-// let loadAnswer = function() {
-//     answer = JSON.parse(localStorage.getItem("answer"));
-
-// }
-
-
-
-
 // start function
 const startQuiz = function() {
     console.log("started")
     questionIndex = 0;
+    initials.remove();
+
 };
+
+// countdown timer attached to timer (starts on click)
+document.getElementById("clicked").addEventListener("click", function(){ 
     
-    // countdown timer attached to timer (starts on click)
-    var timeleft = "";
-    document.getElementById("clicked").addEventListener("click", function(){
         timeleft = 30;
-    
         var downloadTimer = setInterval(function function1(){
         document.getElementById("timer").innerHTML = timeleft + " "+"";
-    
-        timeleft -= 1;
-        if(timeleft <= -1){
-            clearInterval(downloadTimer);
-            document.getElementById("timer").innerHTML = "Times up!"
+        timeleft.textContent = timeleft
+        
+        if (timeleft >0) {
+            timeleft --;
         }
+        else if(timeleft <0){
+            clearInterval(downloadTimer);
+            document.getElementById("timer").innerHTML = "Times up!";
+            qContainer.remove(); //remove previous question for next
+            everyAnswer.remove(); //remove answers
+            endQuiz();
+        }
+        
         }, 1000);
         
         showQuestions();
@@ -92,10 +91,10 @@ var questionsArray = [
         answer: "Console.log"
     }
     ]
-//questions end//
-
 
     
+//questions end//
+
 
 // show questions //  
 const showQuestions = function(){
@@ -117,7 +116,7 @@ const showQuestions = function(){
         answerChoice.className = "answer";
         answerChoice.textContent = currQuestion.choice[i];
 
-      var clickedAnswer = answerChoice.setAttribute("id", currQuestion.choice[i]);//<<<<<<<<<<
+      var clickedAnswer = answerChoice.setAttribute("id", currQuestion.choice[i]);
 
       aContainer.appendChild(answerChoice);
     }
@@ -144,39 +143,46 @@ const showQuestions = function(){
             if (questionIndex < questionsArray.length) {
                 qContainer.remove(); //remove previous question for next
                 aContainer.remove(); //remove previous answer for next
+
                 showQuestions();
             }
             else {
                 endQuiz();
             }
-        }, 1000);
+        }, 500);
     })
 }
 
-// END QUIZ LOGIC and show results/highscore with initials entered
-const endQuiz = function(){
 
-    // stop timer
-    clearInterval(timer);
-
-    //hide questions/asnwers/button
-    qContainer.remove(); //remove previous question for next
-    everyAnswer.remove(); //remove answers
-
+const endQuiz = function() {
+        //hide questions/asnwers/button
+        qContainer.remove(); //remove previous question for next
+        everyAnswer.remove(); //remove answers
+        
+        // getInitials();
+        
+        if (currQuestion < questionsArray.length)
+            showQuestions();
+        else
+            clearInterval(downloadTimer);
+            showResults();
+    }
     
+    // save score
+    // user initials
+    //start again
+    //load HS
 
 
-};
 
 
 
-
-
-showResults = function(){}
+showResults = function(){
+    localStorage.getItem("q_results", JSON.stringify(results)); //store highscore
+}
 // results function
 //viewResults = function(){}
     
-
 
 
 
@@ -186,5 +192,4 @@ startQuiz()
 
 // click to begin quiz
 clickedBtn.addEventListener("click", startQuiz);
-
 
