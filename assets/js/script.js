@@ -10,6 +10,7 @@ let timer = document.querySelector("#timer");
 const initials = document.querySelector(".initials");
 let currQuestion;
 let downloadTimer;
+
 // let results = document.querySelector("#results");
 
 // let score = "";
@@ -31,8 +32,6 @@ for(var i = 0; i < storedResults.length; i++){
 const startQuiz = function() {
     console.log("started")
     questionIndex = 0;
-    initials.remove();
-
 };
 
 // countdown timer attached to timer (starts on click)
@@ -159,7 +158,8 @@ const endQuiz = function() {
         qContainer.remove(); //remove previous question for next
         everyAnswer.remove(); //remove answers
         
-        // getInitials();
+        getInitials();
+        
         
         if (currQuestion < questionsArray.length)
             showQuestions();
@@ -167,13 +167,13 @@ const endQuiz = function() {
             clearInterval(downloadTimer);
             showResults();
     }
+
+    
     
     // save score
     // user initials
     //start again
     //load HS
-
-
 
 
 
