@@ -18,5 +18,3 @@ https://cwmasters.github.io/my-javascript-quiz/
 
 ## Contribution
 HTML, CSS and JavaScript all created by Chris Masters.
-
-
